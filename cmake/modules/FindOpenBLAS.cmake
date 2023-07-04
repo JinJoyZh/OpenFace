@@ -47,6 +47,7 @@ SET(Open_BLAS_INCLUDE_SEARCH_PATHS
   $ENV{OpenBLAS_HOME}
   $ENV{OpenBLAS_HOME}/include
   /opt/OpenBLAS/include
+  /opt/homebrew/Cellar/openblas/0.3.23/include
   /usr/local/include/openblas
   /usr/include/openblas
   /usr/local/include/openblas-base
@@ -63,6 +64,7 @@ SET(Open_BLAS_LIB_SEARCH_PATHS
         $ENV{OpenBLAS_HOME}
         $ENV{OpenBLAS_HOME}/lib
         /opt/OpenBLAS/lib
+        /opt/homebrew/opt/openblas/lib
         /usr/local/lib64
         /usr/local/lib
         /lib/openblas-base
