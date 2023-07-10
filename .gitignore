@@ -106,3 +106,4 @@ lib/local/CppInerop/Debug/
 # IDE-generated folders
 .idea
 cmake-build-debug/*
+.vscode/*
