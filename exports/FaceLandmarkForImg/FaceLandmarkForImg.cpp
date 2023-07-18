@@ -32,14 +32,19 @@ std::vector<std::string> get_arguments(int argc, char **argv)
 	return arguments;
 }
 
-
-
-
 int main(int argc, char **argv)
 {
 
 	//Convert arguments to more convenient vector form
 	std::vector<std::string> arguments = get_arguments(argc, argv);
+    //move some unnecessary outputs
+    arguments.emplace_back("-nobadaligned");
+    arguments.emplace_back("-nosimalign");
+    arguments.emplace_back("-nohogalign");
+    arguments.emplace_back("-no2Dfp");
+    arguments.emplace_back("-nopose");
+    arguments.emplace_back("-noaus");
+
 
 	// no arguments: output usage
 	if (arguments.size() == 1)
