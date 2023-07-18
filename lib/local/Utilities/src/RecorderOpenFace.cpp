@@ -320,7 +320,7 @@ void RecorderOpenFace::WriteObservation()
 
 		csv_filename = (fs::path(record_root) / csv_filename).string();
 		csv_recorder.Open(csv_filename, params.isSequence(), params.output2DLandmarks(), params.output3DLandmarks(), params.outputPDMParams(), params.outputPose(),
-			params.outputAUs(), params.outputGaze(), num_face_landmarks, num_model_modes, num_eye_landmarks, au_names_class, au_names_reg);
+			params.outputAUs(), params.outputGaze(), params.outputEyeLandmarks(), num_face_landmarks, num_model_modes, num_eye_landmarks, au_names_class, au_names_reg);
 	}
 
 	this->csv_recorder.WriteLine(face_id, frame_number, timestamp, landmark_detection_success, 

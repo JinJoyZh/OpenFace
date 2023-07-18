@@ -66,6 +66,7 @@ RecorderOpenFaceParameters::RecorderOpenFaceParameters(std::vector<std::string> 
 	this->output_pose = true;
 	this->output_AUs = true;
 	this->output_gaze = true;
+    this->output_eye_landmarks = true;
 	this->output_hog = true;
 	this->output_tracked = true;
 	this->output_aligned_faces = true;
@@ -120,6 +121,10 @@ RecorderOpenFaceParameters::RecorderOpenFaceParameters(std::vector<std::string> 
 		{
 			this->output_gaze = false;
 		}
+        else if (arguments[i].compare("-noeyepoints") == 0)
+        {
+            this->output_eye_landmarks = false;
+        }
 		else if (arguments[i].compare("-notracked") == 0)
 		{
 			this->output_tracked = false;

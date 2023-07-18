@@ -13,19 +13,19 @@
 //       reports and manuals, must cite at least one of the following works:
 //
 //       OpenFace 2.0: Facial Behavior Analysis Toolkit
-//       Tadas Baltrušaitis, Amir Zadeh, Yao Chong Lim, and Louis-Philippe Morency
+//       Tadas Baltruï¿½aitis, Amir Zadeh, Yao Chong Lim, and Louis-Philippe Morency
 //       in IEEE International Conference on Automatic Face and Gesture Recognition, 2018  
 //
 //       Convolutional experts constrained local model for facial landmark detection.
-//       A. Zadeh, T. Baltrušaitis, and Louis-Philippe Morency,
+//       A. Zadeh, T. Baltruï¿½aitis, and Louis-Philippe Morency,
 //       in Computer Vision and Pattern Recognition Workshops, 2017.    
 //
 //       Rendering of Eyes for Eye-Shape Registration and Gaze Estimation
-//       Erroll Wood, Tadas Baltrušaitis, Xucong Zhang, Yusuke Sugano, Peter Robinson, and Andreas Bulling 
+//       Erroll Wood, Tadas Baltruï¿½aitis, Xucong Zhang, Yusuke Sugano, Peter Robinson, and Andreas Bulling 
 //       in IEEE International. Conference on Computer Vision (ICCV),  2015 
 //
 //       Cross-dataset learning and person-specific normalisation for automatic Action Unit detection
-//       Tadas Baltrušaitis, Marwa Mahmoud, and Peter Robinson 
+//       Tadas Baltruï¿½aitis, Marwa Mahmoud, and Peter Robinson 
 //       in Facial Expression Recognition and Analysis Challenge, 
 //       IEEE International Conference on Automatic Face and Gesture Recognition, 2015 
 //
@@ -60,6 +60,7 @@ namespace Utilities
 		bool outputPose() const { return output_pose; }
 		bool outputAUs() const { return output_AUs; }
 		bool outputGaze() const { return output_gaze; }
+        bool outputEyeLandmarks() const{return output_eye_landmarks;}
 		bool outputHOG() const { return output_hog; }
 		bool outputTracked() const { return output_tracked; }
 		bool outputAlignedFaces() const { return output_aligned_faces; }
@@ -77,6 +78,7 @@ namespace Utilities
 
 		void setOutputAUs(bool output_AUs) { this->output_AUs = output_AUs; }
 		void setOutputGaze(bool output_gaze) { this->output_gaze = output_gaze; }
+        void setOutputEyeLandmarks(bool outpu_eye_landmarks){ this->output_eye_landmarks = outpu_eye_landmarks;}
 
 	private:
 		
@@ -92,6 +94,7 @@ namespace Utilities
 		bool output_pose;
 		bool output_AUs;
 		bool output_gaze;
+        bool output_eye_landmarks;
 		bool output_hog;
 		bool output_tracked;
 		bool output_aligned_faces;
