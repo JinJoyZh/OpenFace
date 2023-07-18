@@ -44,7 +44,10 @@ int main(int argc, char **argv)
     arguments.emplace_back("-no2Dfp");
     arguments.emplace_back("-nopose");
     arguments.emplace_back("-noaus");
-
+    arguments.emplace_back("-nopdmparams");
+    arguments.emplace_back("-wild");
+    //no img/redio recoder
+    //arguments.emplace_back("-notracked");
 
 	// no arguments: output usage
 	if (arguments.size() == 1)

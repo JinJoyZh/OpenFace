@@ -121,18 +121,6 @@ void RecorderOpenFace::PrepareRecording(const std::string& in_filename)
 	// Construct the directories required for the output
 	CreateDirectory(record_root);
 
-	// Create the filename for the general output file that contains all of the meta information about the recording
-	fs::path of_det_name(out_name);
-	of_det_name = fs::path(record_root) / fs::path(out_name + "_of_details.txt");
-
-	// Write in the of file what we are outputing what is the input etc.
-	metadata_file.open(of_det_name.string(), std::ios_base::out);
-	if (!metadata_file.is_open())
-	{
-		std::cout << "ERROR: could not open the output file:" << of_det_name << ", either the path of the output directory is wrong or you do not have the permissions to write to it" << std::endl;
-		exit(1);
-	}
-
 	// Populate relative and full path names in the meta file, unless it is a webcam
 	if (!params.isFromWebcam())
 	{

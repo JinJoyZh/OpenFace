@@ -60,8 +60,6 @@ RecorderOpenFaceParameters::RecorderOpenFaceParameters(std::vector<std::string> 
 	this->image_format_aligned = "bmp";
 	this->image_format_visualization = "jpg";
 
-	bool output_set = false;
-
 	this->output_2D_landmarks = true;
 	this->output_3D_landmarks = true;
 	this->output_model_params = true;
@@ -93,47 +91,38 @@ RecorderOpenFaceParameters::RecorderOpenFaceParameters(std::vector<std::string> 
 		if (arguments[i].compare("-nosimalign") == 0)
 		{
 			this->output_aligned_faces = false;
-			output_set = true;
 		}
 		else if (arguments[i].compare("-nohogalign") == 0)
 		{
 			this->output_hog = false;
-			output_set = true;
 		}
 		else if (arguments[i].compare("-no2Dfp") == 0)
 		{
 			this->output_2D_landmarks = false;
-			output_set = true;
 		}
 		else if (arguments[i].compare("-no3Dfp") == 0)
 		{
 			this->output_3D_landmarks = false;
-			output_set = true;
 		}
 		else if (arguments[i].compare("-nopdmparams") == 0)
 		{
 			this->output_model_params = false;
-			output_set = true;
 		}
 		else if (arguments[i].compare("-nopose") == 0)
 		{
 			this->output_pose = false;
-			output_set = true;
 		}
 		else if (arguments[i].compare("-noaus") == 0)
 		{
 			this->output_AUs = false;
-			output_set = true;
 		}
 		else if (arguments[i].compare("-nogaze") == 0)
 		{
 			this->output_gaze = false;
-			output_set = true;
 		}
 		else if (arguments[i].compare("-notracked") == 0)
 		{
 			this->output_tracked = false;
-			output_set = true;
 		}
 	}
 
