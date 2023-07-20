@@ -4,6 +4,7 @@
 // dlib
 #include <dlib/image_processing/frontal_face_detector.h>
 
+#include "FaceAnalyzerForImgs.h"
 #include "LandmarkCoreIncludes.h"
 
 #include "FaceAnalyser.h"
@@ -11,7 +12,6 @@
 
 #include "ImageCapture.h"
 #include "Visualizer.h"
-#include "VisualizationUtils.h"
 #include "RecorderOpenFace.h"
 #include "RecorderOpenFaceParameters.h"
 
@@ -20,23 +20,13 @@
 #define CONFIG_DIR "~"
 #endif
 
-std::vector<std::string> get_arguments(int argc, char **argv)
+int FaceAnalysis::ProcessImgs(const char *input_dir, const char *output_dir, bool log_mode)
 {
-
-	std::vector<std::string> arguments;
-
-	for (int i = 0; i < argc; ++i)
-	{
-		arguments.push_back(std::string(argv[i]));
-	}
-	return arguments;
-}
-
-int main(int argc, char **argv)
-{
-
-	//Convert arguments to more convenient vector form
-	std::vector<std::string> arguments = get_arguments(argc, argv);
+    std::vector<std::string> arguments;
+    arguments.emplace_back("-fdir");
+    arguments.emplace_back(input_dir);
+    arguments.emplace_back("-out_dir");
+    arguments.emplace_back(output_dir);
     //move some unnecessary outputs
     arguments.emplace_back("-nobadaligned");
     arguments.emplace_back("-nosimalign");
@@ -47,8 +37,9 @@ int main(int argc, char **argv)
     arguments.emplace_back("-nopdmparams");
     arguments.emplace_back("-noeyepoints");
     arguments.emplace_back("-wild");
-    //no img/redio recoder
-    //arguments.emplace_back("-notracked");
+    if(log_mode){
+        arguments.emplace_back("-notracked");
+    }
 
 	// no arguments: output usage
 	if (arguments.size() == 1)
@@ -106,7 +97,7 @@ int main(int argc, char **argv)
 	cv::Mat rgb_image;
 
 	rgb_image = image_reader.GetNextImage();
-	
+
 	if (!face_model.eye_model)
 	{
 		std::cout << "WARNING: no eye model found" << std::endl;
@@ -120,7 +111,7 @@ int main(int argc, char **argv)
 	std::cout << "Starting tracking" << std::endl;
 	while (!rgb_image.empty())
 	{
-	
+
 		Utilities::RecorderOpenFaceParameters recording_params(arguments, false, false,
 			image_reader.fx, image_reader.fy, image_reader.cx, image_reader.cy);
 
@@ -169,7 +160,7 @@ int main(int argc, char **argv)
 			// if there are multiple detections go through them
 			bool success = LandmarkDetector::DetectLandmarksInImage(rgb_image, face_detections[face], face_model, det_parameters, grayscale_image);
 
-			// Estimate head pose and eye gaze				
+			// Estimate head pose and eye gaze
 			cv::Vec6d pose_estimate = LandmarkDetector::GetPose(face_model, image_reader.fx, image_reader.fy, image_reader.cx, image_reader.cy);
 
 			// Gaze tracking, absolute gaze direction
