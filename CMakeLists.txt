@@ -151,7 +151,7 @@ if(${dlib_FOUND})
     message("  dlib version: ${dlib_VERSION}")
 
     if (NOT TARGET dlib)
-        add_library(dlib INTERFACE IMPORTED GLOBAL)
+        add_library(dlib INTERFACE IMPORTED GLOBAL test/test.cpp)
     endif()
 else()
     message(FATAL_ERROR "dlib not found in the system, please install dlib")
@@ -242,3 +242,4 @@ endif()
 
 #export interface
 add_subdirectory(inference/FaceLandmarkImg)
+add_subdirectory(test)

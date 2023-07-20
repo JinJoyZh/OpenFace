@@ -1,7 +1,16 @@
 # Local libraries
 include_directories(${LandmarkDetector_SOURCE_DIR}/include)
 
-add_library(FaceAnalyzerForImgs FaceAnalyzerForImgs.cpp)
+
+SET(SOURCE
+        FaceAnalyzerForImgs.cpp
+        )
+
+SET(HEADERS
+        FaceAnalyzerForImgs.h
+        )
+
+add_library(FaceAnalyzerForImgs ${SOURCE} ${HEADERS})
 
 target_include_directories(FaceAnalyzerForImgs PUBLIC ./FaceAnalyzerForImgs.h)
 

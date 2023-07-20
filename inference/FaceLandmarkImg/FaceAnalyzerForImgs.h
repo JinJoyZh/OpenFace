@@ -10,14 +10,11 @@ extern "C" {
 #endif
 
 
-namespace FaceAnalysis{
-
-    int ProcessImgs(char const * input_dir, char const * output_dir, bool log_mode);
-
-}
+int ProcessImgs(char const * input_dir, char const * output_dir, bool log_mode);
 
 #ifdef __cplusplus
 }
 #endif
 
 #endif
+

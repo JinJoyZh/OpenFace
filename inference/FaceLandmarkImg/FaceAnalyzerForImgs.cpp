@@ -20,7 +20,7 @@
 #define CONFIG_DIR "~"
 #endif
 
-int FaceAnalysis::ProcessImgs(const char *input_dir, const char *output_dir, bool log_mode)
+int ProcessImgs(const char *input_dir, const char *output_dir, bool log_mode)
 {
     std::vector<std::string> arguments;
     arguments.emplace_back("-fdir");
