@@ -3,16 +3,10 @@ include_directories(${LandmarkDetector_SOURCE_DIR}/include)
 
 
 SET(SOURCE
-        FaceAnalyzerForImgs.cpp
+        FaceAnalyzerForImgsExe.cpp
         )
 
-SET(HEADERS
-        FaceAnalyzerForImgs.h
-        )
-
-add_library(FaceAnalyzerForImgs ${SOURCE} ${HEADERS})
-
-target_include_directories(FaceAnalyzerForImgs PUBLIC ./FaceAnalyzerForImgs.h)
+add_executable(FaceAnalyzerForImgs ${SOURCE})
 
 target_link_libraries(FaceAnalyzerForImgs LandmarkDetector)
 target_link_libraries(FaceAnalyzerForImgs FaceAnalyser)

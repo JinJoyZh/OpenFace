@@ -242,4 +242,3 @@ endif()
 
 #export interface
 add_subdirectory(inference/FaceLandmarkImg)
-add_subdirectory(test)

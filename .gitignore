@@ -107,3 +107,4 @@ lib/local/CppInerop/Debug/
 .idea
 cmake-build-debug/*
 .vscode/*
+experiments/*
