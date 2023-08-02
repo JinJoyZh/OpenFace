@@ -241,4 +241,5 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL "${CMAKE_SOURCE_DIR}")
 endif()
 
 #export interface
-add_subdirectory(inference/FaceLandmarkImg)
+add_subdirectory(inference/FaceLandmarkImg/Img)
+add_subdirectory(inference/FaceLandmarkImg/Vid)
