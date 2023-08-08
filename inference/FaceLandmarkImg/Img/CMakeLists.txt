@@ -3,14 +3,14 @@ include_directories(${LandmarkDetector_SOURCE_DIR}/include)
 
 
 SET(SOURCE
-        FaceAnalyzerForImgsExe.cpp
+        FaceAnalyzerImgsEXE.cpp
         )
 
-add_executable(FaceAnalyzerForImgs ${SOURCE})
+add_executable(FaceAnalyzerImgs ${SOURCE})
 
-target_link_libraries(FaceAnalyzerForImgs LandmarkDetector)
-target_link_libraries(FaceAnalyzerForImgs FaceAnalyser)
-target_link_libraries(FaceAnalyzerForImgs GazeAnalyser)
-target_link_libraries(FaceAnalyzerForImgs Utilities)
+target_link_libraries(FaceAnalyzerImgs LandmarkDetector)
+target_link_libraries(FaceAnalyzerImgs FaceAnalyser)
+target_link_libraries(FaceAnalyzerImgs GazeAnalyser)
+target_link_libraries(FaceAnalyzerImgs Utilities)
 
-install (TARGETS FaceAnalyzerForImgs DESTINATION bin)
+install (TARGETS FaceAnalyzerImgs DESTINATION bin)

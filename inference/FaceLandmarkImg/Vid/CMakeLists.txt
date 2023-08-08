@@ -1,7 +1,7 @@
 # Local libraries
 include_directories(${LandmarkDetector_SOURCE_DIR}/include)
 	
-add_executable(FaceLandmarkVid FaceLandmarkVid.cpp)
+add_executable(FaceLandmarkVid FaceLandmarkVidEXE.cpp)
 target_link_libraries(FaceLandmarkVid LandmarkDetector)
 target_link_libraries(FaceLandmarkVid FaceAnalyser)
 target_link_libraries(FaceLandmarkVid GazeAnalyser)
