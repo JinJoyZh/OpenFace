@@ -95,6 +95,18 @@ int main(int argc, char **argv)
 		return 0;
 	}
 
+	int skip_frame = 1;
+	for (size_t i = 0; i < arguments.size(); ++i){
+		if (arguments[i].compare("-skip_frame") == 0)
+		{
+			skip_frame = std::stoi(arguments[i + 1]);
+			if(skip_frame < 1){
+				skip_frame = 1;
+			}
+			break;
+		}
+	}
+
 	LandmarkDetector::FaceModelParameters det_parameters(arguments);
 
 	// The modules that are being used for tracking
@@ -137,7 +149,7 @@ int main(int argc, char **argv)
 		while (!rgb_image.empty()) // this is not a for loop as we might also be reading from a webcam
 		{
 			frame_index ++;
-			if(frame_index % 5 != 0){
+			if(frame_index % skip_frame != 0){
 				// Grabbing the next frame in the sequence
 				rgb_image = sequence_reader.GetNextFrame();
 				continue;

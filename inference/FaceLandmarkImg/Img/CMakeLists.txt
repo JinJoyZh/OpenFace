@@ -6,11 +6,11 @@ SET(SOURCE
         FaceAnalyzerImgsEXE.cpp
         )
 
-add_executable(FaceAnalyzerImgs ${SOURCE})
+add_executable(FaceAnalyzerImg ${SOURCE})
 
-target_link_libraries(FaceAnalyzerImgs LandmarkDetector)
-target_link_libraries(FaceAnalyzerImgs FaceAnalyser)
-target_link_libraries(FaceAnalyzerImgs GazeAnalyser)
-target_link_libraries(FaceAnalyzerImgs Utilities)
+target_link_libraries(FaceAnalyzerImg LandmarkDetector)
+target_link_libraries(FaceAnalyzerImg FaceAnalyser)
+target_link_libraries(FaceAnalyzerImg GazeAnalyser)
+target_link_libraries(FaceAnalyzerImg Utilities)
 
-install (TARGETS FaceAnalyzerImgs DESTINATION bin)
+install (TARGETS FaceAnalyzerImg DESTINATION bin)
