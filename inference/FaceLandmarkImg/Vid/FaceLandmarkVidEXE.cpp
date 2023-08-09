@@ -142,7 +142,6 @@ int main(int argc, char **argv)
 				rgb_image = sequence_reader.GetNextFrame();
 				continue;
 			}
-			std::string in_filename = sequence_reader.name + std::to_string(frame_index);
 			Utilities::RecorderOpenFaceParameters recording_params(arguments, false, false,
 			sequence_reader.fx, sequence_reader.fy, sequence_reader.cx, sequence_reader.cy);
 			if (!face_model.eye_model)
@@ -150,6 +149,11 @@ int main(int argc, char **argv)
 				recording_params.setOutputGaze(false);
 			}
 			
+			std::string in_filename = sequence_reader.name;
+			std::string path = in_filename.substr(0, in_filename.find_last_of("."));
+    		std::string suffix = in_filename.substr(in_filename.find_last_of("."), in_filename.length());
+    		in_filename = path + "_" + std::to_string(frame_index) + suffix;
+    		std::cout << "index of frame that being parsing: " << frame_index << std::endl;
 			Utilities::RecorderOpenFace open_face_rec(in_filename, recording_params, arguments);
 
 			// Reading the images
