@@ -40,6 +40,8 @@
 #include <SequenceCapture.h>
 #include <Visualizer.h>
 #include <VisualizationUtils.h>
+#include "RecorderOpenFace.h"
+#include "RecorderOpenFaceParameters.h"
 
 #define INFO_STREAM( stream ) \
 std::cout << stream << std::endl
@@ -128,12 +130,27 @@ int main(int argc, char **argv)
 			break;
 
 		INFO_STREAM("Device or file opened");
-
 		cv::Mat rgb_image = sequence_reader.GetNextFrame();
 
 		INFO_STREAM("Starting tracking");
+		int frame_index = 0;
 		while (!rgb_image.empty()) // this is not a for loop as we might also be reading from a webcam
 		{
+			frame_index ++;
+			if(frame_index % 5 != 0){
+				// Grabbing the next frame in the sequence
+				rgb_image = sequence_reader.GetNextFrame();
+				continue;
+			}
+			std::string in_filename = sequence_reader.name + std::to_string(frame_index);
+			Utilities::RecorderOpenFaceParameters recording_params(arguments, false, false,
+			sequence_reader.fx, sequence_reader.fy, sequence_reader.cx, sequence_reader.cy);
+			if (!face_model.eye_model)
+			{
+				recording_params.setOutputGaze(false);
+			}
+			
+			Utilities::RecorderOpenFace open_face_rec(in_filename, recording_params, arguments);
 
 			// Reading the images
 			cv::Mat_<uchar> grayscale_image = sequence_reader.GetGrayFrame();
@@ -144,12 +161,14 @@ int main(int argc, char **argv)
 			// Gaze tracking, absolute gaze direction
 			cv::Point3f gazeDirection0(0, 0, -1);
 			cv::Point3f gazeDirection1(0, 0, -1);
+			cv::Vec2f gaze_angle(0, 0);
 
 			// If tracking succeeded and we have an eye model, estimate gaze
 			if (detection_success && face_model.eye_model)
 			{
 				GazeAnalysis::EstimateGaze(face_model, gazeDirection0, sequence_reader.fx, sequence_reader.fy, sequence_reader.cx, sequence_reader.cy, true);
 				GazeAnalysis::EstimateGaze(face_model, gazeDirection1, sequence_reader.fx, sequence_reader.fy, sequence_reader.cx, sequence_reader.cy, false);
+				gaze_angle = GazeAnalysis::GetGazeAngle(gazeDirection0, gazeDirection1);
 			}
 
 			// Work out the pose of the head from the tracked model
@@ -164,29 +183,25 @@ int main(int argc, char **argv)
 			visualizer.SetObservationPose(pose_estimate, face_model.detection_certainty);
 			visualizer.SetObservationGaze(gazeDirection0, gazeDirection1, LandmarkDetector::CalculateAllEyeLandmarks(face_model), LandmarkDetector::Calculate3DEyeLandmarks(face_model, sequence_reader.fx, sequence_reader.fy, sequence_reader.cx, sequence_reader.cy), face_model.detection_certainty);
 			visualizer.SetFps(fps_tracker.GetFPS());
-			// detect key presses (due to pecularities of OpenCV, you can get it when displaying images)
-			char character_press = visualizer.ShowObservation();
 
-			// restart the tracker
-			if (character_press == 'r')
-			{
-				face_model.Reset();
-			}
-			// quit the application
-			else if (character_press == 'q')
-			{
-				return(0);
-			}
+			// Setting up the recorder output
+			open_face_rec.SetObservationLandmarks(face_model.detected_landmarks, face_model.GetShape(sequence_reader.fx, sequence_reader.fy, sequence_reader.cx, sequence_reader.cy),
+				face_model.params_global, face_model.params_local, face_model.detection_certainty, face_model.detection_success);
+			open_face_rec.SetObservationPose(pose_estimate);
+			open_face_rec.SetObservationGaze(gazeDirection0, gazeDirection1, gaze_angle, LandmarkDetector::CalculateAllEyeLandmarks(face_model), LandmarkDetector::Calculate3DEyeLandmarks(face_model, sequence_reader.fx, sequence_reader.fy, sequence_reader.cx, sequence_reader.cy));
+			open_face_rec.WriteObservation();
+
+			open_face_rec.SetObservationVisualization(visualizer.GetVisImage());
+			open_face_rec.WriteObservationTracked();
+			open_face_rec.Close();
 
 			// Grabbing the next frame in the sequence
 			rgb_image = sequence_reader.GetNextFrame();
-
 		}
 
 		// Reset the model, for the next video
 		face_model.Reset();
 		sequence_reader.Close();
-
 		sequence_number++;
 
 	}
