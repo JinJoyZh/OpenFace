@@ -82,7 +82,6 @@ int main(int argc, char **argv)
     arguments.emplace_back("-nosimalign");
     arguments.emplace_back("-nohogalign");
     arguments.emplace_back("-no2Dfp");
-    arguments.emplace_back("-nopose");
     arguments.emplace_back("-noaus");
     arguments.emplace_back("-nopdmparams");
     arguments.emplace_back("-noeyepoints");
